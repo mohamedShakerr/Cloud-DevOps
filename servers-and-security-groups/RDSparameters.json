@@ -1,0 +1,14 @@
+[
+    {
+        "ParameterKey": "EnvironmentName",
+        "ParameterValue": "UdacityProject"
+    },
+    {
+        "ParameterKey": "UserName",
+        "ParameterValue": "mo"
+    },
+    {
+        "ParameterKey": "UserPassword",
+        "ParameterValue": "123"
+    }
+]

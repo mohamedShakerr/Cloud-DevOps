@@ -1,0 +1,33 @@
+Parameters:
+    EnvironmentName:
+        Description: An environment name that will be prefixed to resource names
+        Type: String
+    UserName: 
+        Type: String
+    UserPassword:
+        Type: String       
+
+Resources:
+  MyDBSubnetGroup1:
+    Type: AWS::RDS::DBSubnetGroup
+      Properties: 
+        DBSubnetGroupDescription: "mysubnetgroup description"
+        DBSubnetGroupName: "mysubnetgroup"
+        SubnetIds: 
+        - Fn::ImportValue: !Sub ${EnvironmentName}-PRI1-SN
+        - Fn::ImportValue: !Sub ${EnvironmentName}-PRI2-SN
+
+  MyDB:
+    Type: AWS::RDS::DBInstance
+    Properties: 
+      DeletionPolicy: Retain
+      DBSubnetGroupName: !Ref MyDBSubnetGroup1
+      PubliclyAccessible: false
+      MultiAZ: false
+      AllocatedStorage: 20
+      DBInstanceClass: db.t2.small
+      Engine: "mysql"
+      DBSecurityGroups:
+        - String
+      MasterUsername: !Ref UserName
+      MasterUserPassword: !Ref UserPassword        
